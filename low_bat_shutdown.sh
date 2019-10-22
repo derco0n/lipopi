@@ -20,7 +20,8 @@ echo 0 > /sys/class/gpio/gpio$gpio_port/active_low || { echo -e "Can't set GPIO 
 # If its low (low battery light is on), shutdown
 if [ "`cat /sys/class/gpio/gpio$gpio_port/value`" != 1 ]; then
   echo "`date`: Shutting down due to low battery power!"
-#  /sbin/shutdown -h now || { echo -e "Can't halt the system" 1>&2; exit 1; }
+  sleep 1
+  /sbin/shutdown -h now || { echo -e "Can't halt the system" 1>&2; exit 1; }
 else
  echo "`date`: Battery is good. Keep on running..."
 fi
